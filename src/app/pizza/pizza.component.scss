@@ -1,0 +1,100 @@
+.pizza-order-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+  color: #2c3e50;
+}
+
+.offers, .add-pizza-button {
+  margin-bottom: 20px;
+}
+
+.offer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  background-color: #e0f7fa;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.add-offer-btn, .add-pizza-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.add-offer-btn:hover, .add-pizza-btn:hover {
+  background-color: #218838;
+}
+
+.pizza-size-table, .toppings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.pizza-size-table th, .toppings-table th, .pizza-size-table td, .toppings-table td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.pizza-size-table th {
+  background-color: #007BFF;
+  color: white;
+}
+
+.toppings-tables {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.veg-toppings, .non-veg-toppings {
+  width: 45%;
+}
+
+.total-container {
+  font-size: 1.4em;
+  text-align: right;
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+

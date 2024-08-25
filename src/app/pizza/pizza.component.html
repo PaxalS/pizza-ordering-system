@@ -1,0 +1,127 @@
+<div class="pizza-order-container">
+  <h1>Order Entry Screen</h1>
+
+  <!-- Promotional Offers Section -->
+  <h2>Promotional Offers</h2>
+  <div class="offers">
+    <!-- Offer 1 -->
+    <div class="offer-row grid-container">
+      <span class="col-span-8">Offer 1: 1 Medium Pizza with 2 toppings for $5</span>
+      <div class="quantity-controls col-span-2">
+        <button class="quantity-btn" (click)="decrementOfferQuantity('offer1')">-</button>
+        <span>{{ offer1Quantity }}</span>
+        <button class="quantity-btn" (click)="incrementOfferQuantity('offer1')">+</button>
+      </div>
+      <button class="add-offer-btn col-span-2" (click)="addOffer1()">Add Offer</button>
+    </div>
+
+    <!-- Offer 2 -->
+    <div class="offer-row grid-container">
+      <span class="col-span-8">Offer 2: 2 Medium Pizzas with 4 toppings each for $9</span>
+      <div class="quantity-controls col-span-2">
+        <button class="quantity-btn" (click)="decrementOfferQuantity('offer2')">-</button>
+        <span>{{ offer2Quantity }}</span>
+        <button class="quantity-btn" (click)="incrementOfferQuantity('offer2')">+</button>
+      </div>
+      <button class="add-offer-btn col-span-2" (click)="addOffer2()">Add Offer</button>
+    </div>
+
+    <!-- Offer 3 -->
+    <div class="offer-row grid-container">
+      <span class="col-span-8">Offer 3: 1 Large Pizza with 4 toppings (Pepperoni and BBQ Chicken count as 2 each) - 50% discount</span>
+      <div class="quantity-controls col-span-2">
+        <button class="quantity-btn" (click)="decrementOfferQuantity('offer3')">-</button>
+        <span>{{ offer3Quantity }}</span>
+        <button class="quantity-btn" (click)="incrementOfferQuantity('offer3')">+</button>
+      </div>
+      <button class="add-offer-btn col-span-2" (click)="addOffer3()">Add Offer</button>
+    </div>
+  </div>
+
+  <!-- Add Custom Pizza Section -->
+  <h2>Add Custom Pizza</h2>
+  <div class="add-pizza-button">
+    <button class="add-pizza-btn" (click)="addPizza()">Add Custom Pizza</button>
+  </div>
+
+  <!-- Pizza Entries Section -->
+  <div *ngFor="let pizza of pizzas; let i = index" class="pizza-entry">
+    <h3>
+      Pizza {{ i + 1 }} (Quantity: {{ pizza.quantity }})
+      <ng-container *ngIf="!pizza.isOffer">
+        <!-- Quantity controls for custom pizzas only -->
+        <div class="quantity-controls-inline">
+          <button class="quantity-btn" (click)="decrementCustomPizzaQuantity(i)">-</button>
+          <span>{{ pizza.quantity }}</span>
+          <button class="quantity-btn" (click)="incrementCustomPizzaQuantity(i)">+</button>
+        </div>
+      </ng-container>
+    </h3>
+
+    <!-- Pizza Size Display (Fixed for Offer Pizzas, Selectable for Custom Pizzas) -->
+    <table class="pizza-size-table">
+      <thead *ngIf="!pizza.isOffer">
+        <tr>
+          <th>Size</th>
+          <th>Small ($5)</th>
+          <th>Medium ($7)</th>
+          <th>Large ($8)</th>
+          <th>Extra Large ($9)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td *ngIf="pizza.isOffer">Size: {{ pizza.selectedSize }}</td>
+          <td *ngIf="!pizza.isOffer">Select Size</td>
+          <td *ngIf="!pizza.isOffer">
+            <input type="radio" name="size-{{ i }}" value="Small" [(ngModel)]="pizza.selectedSize" (change)="updateTotal()"> Small
+          </td>
+          <td *ngIf="!pizza.isOffer">
+            <input type="radio" name="size-{{ i }}" value="Medium" [(ngModel)]="pizza.selectedSize" (change)="updateTotal()"> Medium
+          </td>
+          <td *ngIf="!pizza.isOffer">
+            <input type="radio" name="size-{{ i }}" value="Large" [(ngModel)]="pizza.selectedSize" (change)="updateTotal()"> Large
+          </td>
+          <td *ngIf="!pizza.isOffer">
+            <input type="radio" name="size-{{ i }}" value="Extra Large" [(ngModel)]="pizza.selectedSize" (change)="updateTotal()"> Extra Large
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Toppings Selection Tables -->
+    <div class="toppings-tables">
+      <!-- Veg Toppings -->
+      <div class="veg-toppings">
+        <h4>Veg Toppings</h4>
+        <table class="toppings-table">
+          <tr *ngFor="let topping of pizza.vegToppings">
+            <td>{{ topping.name }} - ${{ topping.price }}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="topping.selected" (change)="updateTotal(); checkToppingLimit(pizza)">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Non-Veg Toppings -->
+      <div class="non-veg-toppings">
+        <h4>Non-Veg Toppings</h4>
+        <table class="toppings-table">
+          <tr *ngFor="let topping of pizza.nonVegToppings">
+            <td>{{ topping.name }} - ${{ topping.price }}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="topping.selected" (change)="updateTotal(); checkToppingLimit(pizza)">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Total and Applied Offer -->
+  <div class="total-container">
+    <h3>Final Total: {{ finalTotal | currency }}</h3>
+    <h3>Applied Offer: {{ appliedOffer }}</h3>
+  </div>
+</div>
